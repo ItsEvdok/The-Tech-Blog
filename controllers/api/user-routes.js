@@ -49,7 +49,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/", withAuth, (req, res) => {
+router.post("/", (req, res) => {
   User.create({
     username: req.body.username,
     email: req.body.email,
@@ -65,7 +65,8 @@ router.post("/", withAuth, (req, res) => {
   });
 });
 
-router.post("/login", withAuth, (req, res) => {
+router.post("/login", (req, res) => {
+  console.log("here");
   User.findOne({
     where: {
       email: req.body.email,
@@ -89,7 +90,9 @@ router.post("/login", withAuth, (req, res) => {
       req.session.username = dbUserData.username;
       req.session.loggedIn = true;
 
-      res.json({ user: dbUserData, message: "You are now logged in!" });
+      console.log(dbUserData.id, dbUserData.username );
+
+      res.status(200).json({ user: dbUserData, message: "You are now logged in!" });
     });
   });
 });
