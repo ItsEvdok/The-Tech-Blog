@@ -24,7 +24,7 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: Post,
-        attributes: ["id", "title", "post_url", "created_at"],
+        attributes: ["id", "title", "post_content", "created_at"],
       },
       {
         model: Comment,
@@ -66,7 +66,6 @@ router.post("/", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  console.log("here");
   User.findOne({
     where: {
       email: req.body.email,
@@ -90,15 +89,13 @@ router.post("/login", (req, res) => {
       req.session.username = dbUserData.username;
       req.session.loggedIn = true;
 
-      console.log(dbUserData.id, dbUserData.username );
-
       res.status(200).json({ user: dbUserData, message: "You are now logged in!" });
     });
   });
 });
 
 // User Logout
-router.post("/logout", withAuth, (req, res) => {
+router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();

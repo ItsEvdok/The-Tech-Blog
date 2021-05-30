@@ -5,12 +5,11 @@ const { User, Post, Comment } = require("../models");
 
 // Get all posts for the Dashboard
 router.get("/", withAuth, (req, res) => {
-  console.log("here", req.session.user_id);
   Post.findAll({
     where: {
       user_id: req.session.user_id,
     },
-    attributes: ["id", "post_url", "title", "created_at"],
+    attributes: ["id", "title", "post_content", "created_at"],
     include: [
       {
         model: Comment,
@@ -38,7 +37,7 @@ router.get("/", withAuth, (req, res) => {
 
 router.get("/edit/:id", withAuth, (req, res) => {
   Post.findByPk(req.params.id, {
-    attributes: ["id", "post_url", "title", "created_at"],
+    attributes: ["id", "title", "post_content", "created_at"],
     include: [
       {
         model: Comment,
