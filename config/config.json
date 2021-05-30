@@ -1,0 +1,19 @@
+{
+  "development": {
+    "username": "process.env.DB_USER",
+    "password": "process.env.DB_PW",
+    "database": "process.env.DB_NAME",
+    "host": "localhost",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "process.env.DB_USER",
+    "password": "process.env.DB_PW",
+    "database": "process.env.DB_NAME",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": false,
+    "use_env_variable": "DATABASE_URL"
+  }
+}
